@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Carta</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="carta-body">
+    <div class="particles" id="particles"></div>
+    
+    <div class="desk-layout">
+        
+        <!-- LADO IZQUIERDO: LA FOTO DEL GATO COMO PRUEBA -->
+        <div class="photo-section">
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop" alt="Gatito de prueba">
+                <p class="photo-caption">Nuestro pequeño modelo</p>
+            </div>
+        </div>
+
+        <!-- LADO DERECHO: LA CARTA Y LA TINTA -->
+        <div class="letter-section">
+            
+            <div class="paper">
+                <div class="decorative-border">
+                    <div class="text-side" id="scroll-container">
+                        <div class="content">
+                            <p id="poema"></p>
+                            <p id="firma" class="oculto"><br>Tuyo hasta que el postrer latido abandone mi pecho,<br>Tu compañero eterno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- POTE DE TINTA Y PLUMA (MOVIDOS FUERA DE LA CARTA, HACIA LA DERECHA) -->
+            <div class="ink-and-quill">
+                <svg width="100" height="150" viewBox="0 0 100 150">
+                    <ellipse cx="50" cy="142" rx="25" ry="8" fill="rgba(0,0,0,0.3)"/>
+                    <path d="M 65 100 C 65 100, 105 35, 80 5 C 55 -15, 30 25, 45 65 C 50 80, 55 95, 60 100 Z" fill="#1a1a1a"/>
+                    <path d="M 80 5 C 65 25, 50 65, 45 110" stroke="#0a0a0a" stroke-width="3" fill="none"/>
+                    <path d="M 72 25 L 80 20 M 65 45 L 77 40 M 57 65 L 67 63 M 45 35 L 53 40 M 43 55 L 50 57" stroke="#333" stroke-width="1.5"/>
+                    <path d="M 30 140 L 35 110 L 65 110 L 70 140 Z" fill="url(#inkwell-grad)"/>
+                    <ellipse cx="50" cy="140" rx="20" ry="6" fill="#111"/>
+                    <ellipse cx="50" cy="110" rx="15" ry="5" fill="#2a2a2a"/>
+                    <rect x="42" y="100" width="16" height="10" fill="#1a1a1a"/>
+                    <ellipse cx="50" cy="100" rx="8" ry="3" fill="#000"/>
+                    <rect x="38" y="118" width="24" height="12" rx="2" fill="#d4af37"/>
+                    <path d="M 40 120 L 60 120 M 40 124 L 60 124 M 45 128 L 55 128" stroke="#8a1c1c" stroke-width="1"/>
+                    <defs>
+                        <linearGradient id="inkwell-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#111" />
+                            <stop offset="30%" stop-color="#444" />
+                            <stop offset="70%" stop-color="#222" />
+                            <stop offset="100%" stop-color="#050505" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="btn-volver-container">
+                <a href="index.html" class="btn-volver">Guardar en el corazón</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // TEXTO ESTILO EDGAR ALLAN POE REDUCIDO A 150 PALABRAS
+        const textoLargo = `Mi amada, luz inmarcesible de mi lóbrega existencia,\n\nEn la profunda penumbra de mis noches solitarias, es tu recuerdo la única llama que disipa las sombras de mi atribulada alma. Desde aquel instante en que nuestras miradas se entrelazaron, supe que mi destino quedaba irrevocablemente encadenado al tuyo. Has traído una belleza fúlgida a este corazón que antes solo conocía el frío y la desolación.\n\nOh, dulce compañera, habitas en mis pensamientos febriles como un eco perpetuo. Eres el refugio sagrado contra las implacables tempestades que azotan mi espíritu, el faro que me guía a través de las brumas de este mundo mortal.\n\nMe has enseñado que, incluso en las tinieblas más densas, un afecto genuino puede florecer. Te prometo velar por tus sueños y venerarte hasta el ineludible umbral de la eternidad. Te amo con un fuego abrasador que consumirá mis huesos antes de extinguirse jamás.`;
+        
+        const elementoPoema = document.getElementById("poema");
+        const firma = document.getElementById("firma");
+        const scrollContainer = document.getElementById("scroll-container");
+        
+        let i = 0; 
+        function escribirTexto() {
+            if (i < textoLargo.length) {
+                if(textoLargo.charAt(i) === '\n') {
+                    elementoPoema.innerHTML += '<br>';
+                } else {
+                    elementoPoema.innerHTML += textoLargo.charAt(i);
+                }
+                i++;
+                scrollContainer.scrollTop = scrollContainer.scrollHeight;
+                // Al ser 150 palabras, un poco más lento para disfrutar la lectura
+                setTimeout(escribirTexto, 18); 
+            } else {
+                setTimeout(() => {
+                    firma.classList.remove("oculto");
+                    firma.classList.add("mostrar");
+                    scrollContainer.scrollTop = scrollContainer.scrollHeight;
+                }, 1000);
+            }
+        }
+        setTimeout(escribirTexto, 1500);
+    </script>
+</body>
+</html>
